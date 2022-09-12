@@ -1,7 +1,7 @@
-const repositorioDeUsuarios = require('../repositorios/repositorio-de-usuarios');
+const db = require('../banco-de-dados/banco-de-dados');
 
 module.exports = (app) => {
-    app.post('/usuarios/registro', (req, res) => {
+    app.post('/usuarios/registro', async (req, res) => {
         // 1. obter informações
         const { nome, email, senha } = req.body;
         
@@ -11,7 +11,7 @@ module.exports = (app) => {
             return;
         }
         
-        const usuarioJaRegistrado = repositorioDeUsuarios.obterUsuarioPorEmail(email);
+        const usuarioJaRegistrado = await db.usuario.findFirst({ where: { email } });
         if (usuarioJaRegistrado) {
             res.status(400).send({ error: 'Já existe um usuário com este email!' })
             return;
@@ -20,17 +20,17 @@ module.exports = (app) => {
         // 2. adicionar no array de usuarios
         // um objeto com essas propriedades acima
         const usuario = { nome, email, senha };
-        repositorioDeUsuarios.adicionarUsuario(usuario);
+        await db.usuario.create({ data: usuario });
         
         // 3. retornar o usuario registrado
         res.send({ usuario })
     })
       
-    app.get('/usuarios', (req, res) => {
-        res.send({ usuarios: repositorioDeUsuarios.obterTodosUsuarios() });
+    app.get('/usuarios', async (req, res) => {
+        res.send({ usuarios: await db.usuario.findMany() });
     })
       
-    app.post('/usuarios/login', (req, res) => {
+    app.post('/usuarios/login', async (req, res) => {
         const { email, senha } = req.body;
 
         if (!email || !senha) {
@@ -38,7 +38,7 @@ module.exports = (app) => {
             return;
         }
 
-        const usuario = repositorioDeUsuarios.obterUsuarioPorEmail(email);
+        const usuario = await db.usuario.findFirst({ where: { email } });
         if (!usuario) {
             res.status(400).send({ error: 'Usuário não encontrado!' })
             return;
