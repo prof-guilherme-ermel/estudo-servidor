@@ -11,8 +11,86 @@ datasource db {
 }
 
 model Usuario {
-  id    Int @id @default(autoincrement())
-  nome  String
-  email String @unique
-  senha String
+  id      Int @id @default(autoincrement())
+  nome    String
+  email   String @unique
+  senha   String
+  // compras Compra[]
 }
+
+model Produto {
+  codigoDoProduto String @id
+  nome            String
+  valor           Decimal
+  // itemDoPedido    ItemDaCompra[]
+}
+
+// model Compra {
+//   id              Int @id @default(autoincrement())
+//   comprador       Usuario @relation(fields: [compradorId], references: [id])
+//   compradorId     Int
+// 	itens           ItemDaCompra[]
+//   total           Decimal
+// }
+
+// model ItemDaCompra {
+//   id              Int @id @default(autoincrement())
+//   produto         Produto @relation(fields: [codigoDoProduto], references: [codigoDoProduto])
+//   codigoDoProduto String
+// 	quantidade      Int
+// 	preco           Decimal
+//   compra          Compra @relation(fields: [compraId], references: [id])
+//   compraId        Int
+// }
+
+// model Usuario {
+//   id              Int @id @default(autoincrement())
+//   nomeCompleto    String
+//   email           String @unique
+//   perfil          Perfil?
+// }
+
+// model Perfil {
+//   id              Int @id @default(autoincrement())
+//   usuario         Usuario @relation(fields: [usuarioId], references: [id])
+//   usuarioId       Int @unique
+//   nick            String?
+//   imagem          Bytes?
+// }
+
+// model Usuario {
+//   id                Int @id @default(autoincrement())
+//   nomeCompleto      String
+//   email             String @unique
+//   cartoesDeCredito  CartaoDeCredito[]
+// }
+
+// model CartaoDeCredito {
+//   id                Int @id @default(autoincrement())
+//   nomeImpresso      String
+//   numero            Int @unique
+//   codigoSeguranca   String
+//   usuario           Usuario @relation(fields: [usuarioId], references: [id])
+//   usuarioId         Int
+// }
+
+// model Produto {
+//   codigoDoProduto String @id
+//   nome            String
+//   valor           Decimal
+//   categorias      CategoriaDoProduto[]
+// }
+
+// model Categoria {
+//   id              Int @id @default(autoincrement())
+//   descricao       String
+//   produtos        CategoriaDoProduto[]
+// }
+
+// model CategoriaDoProduto {
+//   produto         Produto @relation(fields: [produtoId], references: [codigoDoProduto])
+//   produtoId       String
+//   categoria       Categoria @relation(fields: [categoriaId], references: [id])
+//   categoriaId     Int
+//   @@id([produtoId, categoriaId])
+// }
