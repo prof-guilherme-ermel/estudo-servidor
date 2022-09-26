@@ -13,7 +13,5 @@ module.exports = (app) => {
       
     app.put('/produto', alterarProduto);
 
-    app.delete('/produto/:codigoDoProduto', removerProduto);
-
     app.delete('/produto', removerProduto);
 }
