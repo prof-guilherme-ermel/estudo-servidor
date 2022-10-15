@@ -6,5 +6,12 @@ CREATE TABLE "Usuario" (
     "senha" TEXT NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "Produto" (
+    "codigoDoProduto" TEXT NOT NULL PRIMARY KEY,
+    "nome" TEXT NOT NULL,
+    "valor" DECIMAL NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
