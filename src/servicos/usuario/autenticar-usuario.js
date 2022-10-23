@@ -1,5 +1,6 @@
 const db = require('../../banco-de-dados/banco-de-dados');
 const criptografia = require('../../utilitarios/criptografia')
+const jwt = require('../../utilitarios/jwt')
 
 module.exports = async (req, res) => {
 const { email, senha } = req.body;
@@ -20,5 +21,8 @@ if (!criptografia.valorEhEquivalenteAoCriptografado(senha, usuario.senha)) {
     return;
 }
 
-res.send({ usuario });
+res.send({
+    usuario,
+    token: jwt.criarToken({ email: usuario.email })
+});
 }
