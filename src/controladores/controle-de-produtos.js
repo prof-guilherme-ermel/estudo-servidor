@@ -8,7 +8,7 @@ const jwt = require('../utilitarios/jwt');
 
 const router = express.Router();
 
-router.use((req, res, next) => {
+router.use(['/produto', '/produtos'], (req, res, next) => {
     const autenticacao = req.headers.authorization;
     if (!autenticacao) {
         res.status(401).send({ error: 'Token não informado!' });
