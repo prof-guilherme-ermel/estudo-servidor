@@ -48,9 +48,7 @@ module.exports = async (req, res) => {
     
     const compra = await db.compra.create({
         data: {
-            comprador: {
-                connect: { id: compradorId }
-            },
+            compradorId,
             itens: {
                 create: itensDaCompra,
             },
