@@ -39,6 +39,6 @@ model ItemDaCompra {
   codigoDoProduto String
 	quantidade      Int
 	preco           Decimal
-  compra          Compra @relation(fields: [compraId], references: [id])
+  compra          Compra @relation(fields: [compraId], references: [id], onDelete: Cascade)
   compraId        Int
 }
